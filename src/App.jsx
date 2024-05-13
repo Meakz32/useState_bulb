@@ -1,20 +1,22 @@
 import React, { useState } from 'react'
 import { Box, Container, Button } from '@mui/material'
+import styled, {css} from 'styled-components'
 
 export default function App() {
   let [btn, setBtn] = useState("ON")
-  let [blbColor, setBlbColor] = useState("noColor")
+  let [blbColor, setBlbColor] = useState("lightoff")
+
 
 
   const changeBtn = () => {
     if (btn === "ON") {
       setBtn("OFF")
-      setBlbColor("yellow")
+      setBlbColor("lighton")
     }
     else {
       setBtn("ON")
 
-      setBlbColor("noColor")
+      setBlbColor("lightoff")
     }
   }
 
@@ -24,7 +26,7 @@ export default function App() {
     <>
       <Container>
         <Box mt={10} p={5} width={150} sx={{ border: '2px solid' }}>
-          <div id='bulb' className={blbColor} />
+          <Div variant={blbColor} />
 
           <Button id='btn' variant="contained" onClick={changeBtn}>{btn}</Button>
 
@@ -33,3 +35,23 @@ export default function App() {
     </>
   )
 }
+
+const Div = styled.div`
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 75px;
+  border: 2px solid;
+
+  ${(props)=>
+  props.variant === "lightoff" &&
+  css`
+    background-color: none;
+  `}
+
+  ${(props)=>
+  props.variant === "lighton" &&
+  css`
+    background-color: yellow;
+  `}
+`;
